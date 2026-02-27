@@ -1,5 +1,9 @@
+
 import pandas as pd
 import numpy as np
+import joblib
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
@@ -98,3 +102,23 @@ print(classification_report(y_test, predictions))
 
 print("Confusion Matrix:")
 print(confusion_matrix(y_test, predictions))
+
+# ===============================
+# 🔟 Save Model
+# ===============================
+
+joblib.dump(model_pipeline, "../model.pkl")
+print("\nModel saved as model.pkl")
+
+# ===============================
+# 📊 Confusion Matrix Visualization
+# ===============================
+
+cm = confusion_matrix(y_test, predictions)
+
+plt.figure(figsize=(6,4))
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
+plt.title("Confusion Matrix")
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
+plt.show()
